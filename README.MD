@@ -89,7 +89,7 @@ class Page extends Model
 }
 ```
 
-We can find `Page` by its last view:
+We can find `Page` by its first view:
 
 ```php
 $page = Page::withComputed('first_view')
