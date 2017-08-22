@@ -52,6 +52,7 @@ abstract class TestCase extends OrchestraTestCase
     {
         $this->app['db']->connection()->getSchemaBuilder()->create('pages', function (Blueprint $table) {
             $table->increments('id');
+            $table->timestamps();
         });
     }
 

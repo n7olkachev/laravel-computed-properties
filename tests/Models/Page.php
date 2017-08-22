@@ -10,8 +10,6 @@ class Page extends Model
 {
     use ComputedProperties;
 
-    public $timestamps = false;
-
     protected $casts = [
         'last_view' => 'datetime',
         'first_view' => 'datetime',
