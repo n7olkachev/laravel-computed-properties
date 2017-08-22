@@ -1,5 +1,9 @@
 # Computed properties for Eloquent
 
+<p align="center">
+<a href="https://websecret.by"><img src="https://websecret.by/images/Websecret-logo.png" /></a>
+</p>
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/n7olkachev/laravel-computed-properties.svg?style=flat-square)](https://packagist.org/packages/n7olkachev/laravel-computed-properties)
 [![Build Status](https://travis-ci.org/n7olkachev/laravel-computed-properties.svg?branch=master)](https://travis-ci.org/n7olkachev/laravel-computed-properties.svg?branch=master)
 
