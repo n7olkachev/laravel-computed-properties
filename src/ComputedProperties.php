@@ -3,6 +3,7 @@
 namespace N7olkachev\ComputedProperties;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 trait ComputedProperties
 {
@@ -10,7 +11,11 @@ trait ComputedProperties
     {
         Builder::macro('withComputed', function ($properties) {
             collect($properties)->each(function ($property) {
-                $query = $this->model->callComputedProperty($property, true)->toBase();
+                if (!$this->model->hasComputedProperty($property)) {
+                    throw new \InvalidArgumentException("Computed property [$property] does not exist");
+                }
+
+                $query = $this->model->callComputedProperty($property, true);
 
                 if (is_null($this->query->columns)) {
                     $this->query->select([$this->query->from.'.*']);
@@ -26,8 +31,9 @@ trait ComputedProperties
     public function __get($key)
     {
         if (!array_key_exists($key, $this->attributes) && $this->hasComputedProperty($key)) {
-            $result = $this->callComputedProperty($key, false);
-            $this->attributes[$key] = array_first($result->first()->getAttributes());
+            $query = $this->callComputedProperty($key, false);
+            $result = (array) $query->first();
+            $this->attributes[$key] = array_first($result);
         }
 
         return parent::__get($key);
@@ -43,10 +49,19 @@ trait ComputedProperties
         return 'computed' . ucfirst(camel_case($property));
     }
 
-    public function callComputedProperty($property, $inQuery)
+    public function callComputedProperty($property, $runningInQuery)
     {
         $method = $this->computedPropertyMethodName($property);
+        $query = $this->$method(new ModelProxy($this, $runningInQuery));
 
-        return $this->$method(new ModelProxy($this, $inQuery));
+        if ($query instanceof Builder) {
+            $query = $query->toBase();
+        }
+
+        if (!$query instanceof QueryBuilder) {
+            throw new \UnexpectedValueException("Computed property must return EloquentBuilder or QueryBuilder instance");
+        }
+
+        return $query;
     }
 }

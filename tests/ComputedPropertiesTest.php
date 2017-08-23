@@ -82,4 +82,11 @@ class ComputedPropertiesTest extends TestCase
 
         $this->assertEquals($order->sum, 20);
     }
+
+    /** @test */
+    public function it_throws_if_comuted_property_does_not_exist()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        Order::withComputed('nonExistingProperty');
+    }
 }

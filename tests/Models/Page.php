@@ -28,7 +28,10 @@ class Page extends Model
 
     public function computedFirstView($page)
     {
+        // We will return QueryBuilder instead of EloquentBuilder just for testing
+
         return PageView::select(new Expression('min(viewed_at)'))
-            ->where('page_id', $page->id);
+            ->where('page_id', $page->id)
+            ->toBase();
     }
 }
