@@ -18,8 +18,8 @@ class ModelProxy
     {
         if ($this->inQuery) {
             return \DB::raw($this->model->getTable() . '.' . $key);
-        } else {
-            return $this->model->$key;
         }
+
+        return $this->model->$key;
     }
 }
