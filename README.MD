@@ -5,6 +5,7 @@
 </p>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/n7olkachev/laravel-computed-properties.svg?style=flat-square)](https://packagist.org/packages/n7olkachev/laravel-computed-properties)
+[![Licence](https://img.shields.io/packagist/l/n7olkachev/laravel-computed-properties.svg?style=flat-square)](https://packagist.org/packages/n7olkachev/laravel-computed-properties)
 [![Build Status](https://travis-ci.org/n7olkachev/laravel-computed-properties.svg?branch=master)](https://travis-ci.org/n7olkachev/laravel-computed-properties)
 
 **Laravel 5.4+**
